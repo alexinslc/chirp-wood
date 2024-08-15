@@ -1,20 +1,40 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        'shire-forest': '#3B5323',
+        'shire-bark': '#4E3B31',
+        'shire-sky': '#A3C1AD',
+        'shire-cream': '#F5F5DC',
+        'shire-gold': '#D2B48C',
+      },
+      borderRadius: {
+        'pill': '9999px', // Pill shape
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addComponents }: { addComponents: any }) {
+      addComponents({
+        '.btn-pill': {
+          padding: '0.5rem 1.5rem',
+          backgroundColor: '#D2B48C',
+          color: '#3B5323',
+          fontWeight: 'bold',
+          borderRadius: '9999px',
+          transition: 'background-color 0.3s',
+          '&:hover': {
+            backgroundColor: '#4E3B31',
+          },
+        },
+      });
+    },
+  ],
 };
+
 export default config;
