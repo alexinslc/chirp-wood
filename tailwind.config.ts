@@ -7,11 +7,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'shire-forest': '#3B5323',
-        'shire-bark': '#4E3B31',
-        'shire-sky': '#A3C1AD',
-        'shire-cream': '#F5F5DC',
-        'shire-gold': '#D2B48C',
+        'shire-forest': '#556B2F', // Softer forest green
+        'shire-bark': '#8B4513',   // Warm brown, closer to natural wood
+        'shire-sky': '#7F9B7C',    // Muted sage green, like a cloudy sky
+        'shire-cream': '#F5F5DC',  // Cream for text and backgrounds
+        'shire-gold': '#C5A880',   // Muted gold for accents
       },
       borderRadius: {
         'pill': '9999px', // Pill shape
@@ -23,13 +23,13 @@ const config: Config = {
       addComponents({
         '.btn-pill': {
           padding: '0.5rem 1.5rem',
-          backgroundColor: '#D2B48C',
-          color: '#3B5323',
+          backgroundColor: '#C5A880',
+          color: '#556B2F',
           fontWeight: 'bold',
           borderRadius: '9999px',
           transition: 'background-color 0.3s',
           '&:hover': {
-            backgroundColor: '#4E3B31',
+            backgroundColor: '#8B4513',
           },
         },
       });
