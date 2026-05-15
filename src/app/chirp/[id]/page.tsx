@@ -1,19 +1,20 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import Layout from '../../components/Layout';
 
-export default function ChirpDetailsPage({ params }: { params: { id: string } }) {
+export default function ChirpDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const router = useRouter();
   const [post, setPost] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
-      const postDoc = await getDoc(doc(db, 'posts', params.id));
+      const postDoc = await getDoc(doc(db, 'posts', id));
       if (postDoc.exists()) {
         setPost(postDoc.data());
         console.log("Post data: ", postDoc.data()); // Log the post data
@@ -27,12 +28,12 @@ export default function ChirpDetailsPage({ params }: { params: { id: string } })
 
     fetchPost();
     return () => unsubscribe && unsubscribe();
-  }, [params.id]);
+  }, [id]);
 
   const handleDelete = async () => {
     const confirmed = window.confirm("Are you sure you want to delete this chirp?");
     if (confirmed) {
-      await deleteDoc(doc(db, 'posts', params.id));
+      await deleteDoc(doc(db, 'posts', id));
       router.push('/feed');
     }
   };
@@ -57,7 +58,7 @@ export default function ChirpDetailsPage({ params }: { params: { id: string } })
           </p>
           {user?.uid === post.uid && (
             <div className="flex justify-end mt-2 space-x-2">
-              <button onClick={() => router.push(`/chirp/${params.id}/edit`)} className="text-xs text-shire-cream underline hover:text-shire-gold">
+              <button onClick={() => router.push(`/chirp/${id}/edit`)} className="text-xs text-shire-cream underline hover:text-shire-gold">
                 Edit
               </button>
               <button onClick={handleDelete} className="text-xs text-red-500 underline hover:text-red-700">
